@@ -15,6 +15,7 @@ public class LoudMouth extends JavaPlugin{
     @Override
     public void onEnable(){
         PluginInfo("LoudMouth now enabled!");
+        checkFilesExist();
     }
     
     public static void PluginInfo(String message){
@@ -25,7 +26,7 @@ public class LoudMouth extends JavaPlugin{
     /* The following function checks to ensure that the configuration
      * files and the folder in which they are contained exists*/
     
-    public boolean checkFilesExists(){
+    public boolean checkFilesExist(){
         boolean fileNotFound = false;
         File folderFile = new File(Config.CONFIG_FOLDER);
         
@@ -33,12 +34,22 @@ public class LoudMouth extends JavaPlugin{
         if(!folderFile.exists()){
             fileNotFound = true;
             PluginInfo("Configuration folder not found...Creating");
+            folderFile.mkdir();
+        }
+        
+        File configFile = new File(Config.CONFIG_FOLDER + Config.CONFIG_FILE);
+        
+        if(!configFile.exists()){
+            fileNotFound = true;
+            PluginInfo("Configuration file not found...Creating");
             try {
-                folderFile.createNewFile();
+                configFile.createNewFile();
             } catch (IOException ex) {
-               PluginInfo("Could not create config folder!");
+                PluginInfo("Could not create config file!");
             }
         }
+        
+       
         return fileNotFound;
     }
 }
