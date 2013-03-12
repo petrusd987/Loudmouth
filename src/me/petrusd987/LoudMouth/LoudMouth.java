@@ -5,7 +5,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class LoudMouth extends JavaPlugin{
     @Override
     public void onDisable(){
-        System.out.append("LoudMouth disabled!");
+       PluginInfo("LoudMouth disabled!");
     }
     
     @Override
