@@ -5,6 +5,8 @@ import java.io.IOException;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class LoudMouth extends JavaPlugin{
+    BroadcastTimer broadcastTimer = null;
+    
     @Override
     public void onDisable(){
        PluginInfo("LoudMouth disabled!");
@@ -13,8 +15,12 @@ public class LoudMouth extends JavaPlugin{
     @Override
     public void onEnable(){
         PluginInfo("LoudMouth now enabled!");
+        
         getConfig().options().copyDefaults(true);
         saveConfig();
+        
+        broadcastTimer = new BroadcastTimer();
+        broadcastTimer.start(getConfig().getInt("Message-Broadcast-Interval"));
     }
     
     public static void PluginInfo(String message){
