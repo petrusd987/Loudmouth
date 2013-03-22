@@ -1,0 +1,9 @@
+#Default Configuration File for LoudMouth
+#Petrusd987
+#petrusd987@gmail.com
+
+#Broadcasting interval(in seconds)
+Message-Broadcast-Interval: 60
+
+#Should Message Selection Be Randomized?(If not then sequential)
+Message-Selection-Randomize: 0
