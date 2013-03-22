@@ -6,6 +6,7 @@ package me.petrusd987.LoudMouth;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.bukkit.Bukkit;
 
 /**
  *
@@ -13,7 +14,9 @@ import java.util.logging.Logger;
  */
 public class BroadcastTimer implements Runnable{
     public int broadcastInterval = 60;
+    public int broadcastMethod = Config.BROADCAST_SEQUENTIAL;
     private Thread broadcastThread = null;
+    private int messageCount = 0;
     
     public void start(){
      start(broadcastInterval);
@@ -39,7 +42,18 @@ public class BroadcastTimer implements Runnable{
     public void run() {
         while(true){
             threadWait(broadcastInterval*1000);
-            LoudMouth.PluginInfo(Integer.toString(this.broadcastInterval));
+            Bukkit.broadcastMessage(Config.messages.get(messageCount));
+            generateNewMessageCount();
+        }
+    }
+    
+    private void generateNewMessageCount(){
+        if(broadcastMethod == Config.BROADCAST_SEQUENTIAL){
+            if(messageCount == Config.messages.size()-1){
+                messageCount = 0;
+            }else{
+                messageCount++;
+            }
         }
     }
     

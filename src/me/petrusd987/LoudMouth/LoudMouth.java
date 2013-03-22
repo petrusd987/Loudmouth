@@ -1,9 +1,7 @@
 package me.petrusd987.LoudMouth;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import org.bukkit.configuration.file.YamlConfiguration;
+import java.util.ArrayList;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class LoudMouth extends JavaPlugin{
@@ -19,6 +17,9 @@ public class LoudMouth extends JavaPlugin{
         PluginInfo("LoudMouth now enabled!");
        
         checkFilesExist();
+        
+        Config.messages = new ArrayList<String>();
+        Config.messages = FileIO.getLinesFromFile(new File(Config.CONFIG_FOLDER + "messages.txt"));
         
         broadcastTimer = new BroadcastTimer();
         broadcastTimer.start(getConfig().getInt("Message-Broadcast-Interval"));
@@ -38,7 +39,6 @@ public class LoudMouth extends JavaPlugin{
         saveConfig();
         
         //Set up the messages file
-        File inputMessagesFile = new File(getDataFolder(),"messages.txt");
-        File outputMessagesFile = new File(Config.CONFIG_FOLDER + "messages.txt");
+        FileIO.copyStreamToFile(getResource("messages.txt"), new File(Config.CONFIG_FOLDER + "messages.txt"));
     }
 }
